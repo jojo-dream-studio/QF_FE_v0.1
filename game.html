@@ -9,7 +9,6 @@
   <link rel="apple-touch-icon" sizes="180x180" href="qf_assets/apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="qf_assets/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="qf_assets/favicon-16x16.png" />
-  <link rel="stylesheet" href="TemplateData/style.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.9.2/ethers.umd.js"></script>
   <meta name="theme-color" content="#000000" />
 </head>
@@ -21,6 +20,31 @@
     padding: 0;
     height: 100%;
     overflow: hidden;
+  }
+
+  #unity-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  #unity-loading-bar {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+  }
+
+  #unity-warning {
+    position: absolute;
+    left: 50%;
+    top: 5%;
+    transform: translate(-50%);
+    background: white;
+    padding: 10px;
+    display: none;
   }
 
   #unity-canvas {
@@ -84,10 +108,8 @@
             height: 100%;
             display: flex;
             justify-content: center;
-            align-items: center;
-            background: rgba(0, 0, 0, 0);
-          ">
-        <video src="TemplateData/Characters moving L loading.mp4" autoplay loop muted></video>
+            align-items: center;">
+        <video src="" autoplay loop muted style="display: none;"></video>
       </div>
 
       <div class="progress">
@@ -270,10 +292,10 @@
         // Show loading bar
         loadingBar.style.display = "block";
 
-        // Attempt to detect if Build/build.data exists
+        // Attempt to detect if Build/Build.data exists
         let combinedDataUrl = null;
         let buildUrl = "Build";
-        let buildDataUrl = buildUrl + "/build.data"; // the big combined file
+        let buildDataUrl = buildUrl + "/Build.data"; // the big combined file
 
         try {
           // Try a HEAD request to see if build.data is present
@@ -290,25 +312,25 @@
             // If HEAD fails (404, etc.), do chunking
             console.log("build.data not found, proceeding with chunking...");
             const chunkUrls = [
-              "Build/build.data.01",
-              "Build/build.data.02",
-              "Build/build.data.03",
-              "Build/build.data.04",
-              "Build/build.data.05",
-              "Build/build.data.06",
-              "Build/build.data.07",
-              "Build/build.data.08",
-              "Build/build.data.09",
-              "Build/build.data.10",
-              "Build/build.data.11",
-              "Build/build.data.12",
-              "Build/build.data.13",
-              "Build/build.data.14",
-              "Build/build.data.15",
-              "Build/build.data.16",
-              "Build/build.data.17",
-              "Build/build.data.18",
-              "Build/build.data.19"
+              "Build/Build.data.01",
+              "Build/Build.data.02",
+              "Build/Build.data.03",
+              "Build/Build.data.04",
+              "Build/Build.data.05",
+              "Build/Build.data.06",
+              "Build/Build.data.07",
+              "Build/Build.data.08",
+              "Build/Build.data.09",
+              "Build/Build.data.10",
+              "Build/Build.data.11",
+              "Build/Build.data.12",
+              "Build/Build.data.13",
+              "Build/Build.data.14",
+              "Build/Build.data.15",
+              "Build/Build.data.16",
+              "Build/Build.data.17",
+              "Build/Build.data.18",
+              "Build/Build.data.19"
             ];
             combinedDataUrl = await loadAndCombineChunks(chunkUrls);
           }
