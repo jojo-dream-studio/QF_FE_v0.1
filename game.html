@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>TEST FARPG</title>
+  <link rel="shortcut icon" href="qf_assets/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="qf_assets/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="qf_assets/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="qf_assets/favicon-16x16.png" />
+  <link rel="stylesheet" href="TemplateData/style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.9.2/ethers.umd.js"></script>
+  <meta name="theme-color" content="#000000" />
+</head>
+
+<style>
+  body,
+  html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  #unity-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  html {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+
+  #unity-canvas {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+</style>
+
+<body style="background-color: #000000">
+  <div id="debridge-widget-container"
+    style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1001; background-color: rgba(0, 0, 0, 0.8); padding: 20px; border-radius: 10px;">
+    <button onclick="closeDeBridgeWidget()"
+      style="position: absolute; top: 10px; right: 10px; background: none; border: none; color: white; font-size: 20px; cursor: pointer;">&times;</button>
+    <iframe id="debridge-widget-iframe" style="width: 400px; height: 600px; border: none;"></iframe>
+  </div>
+
+  <!-- A separate module script for index.js -->
+  <script type="module" src="./index.js"></script>
+
+  <script>
+    function clearCache() {
+      o =
+        window.indexedDB ||
+        window.mozIndexedDB ||
+        window.webkitIndexedDB ||
+        window.msIndexedDB;
+      var t = {
+        name: "UnityCache",
+        version: 3
+      };
+      o.deleteDatabase(t.name);
+      location.reload();
+      //alert("Cache cleared successfully!");
+    }
+  </script>
+
+  <div id="unity-container" class="unity-desktop">
+    <canvas id="unity-canvas" width="1920" height="1080"></canvas>
+
+    <div id="unity-loading-bar" style="background: rgba(0, 0, 0, 0)">
+      <div class="video-container" style="
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0);
+          ">
+        <video src="TemplateData/Characters moving L loading.mp4" autoplay loop muted></video>
+      </div>
+
+      <div class="progress">
+        <div class="bar">
+          <div class="progress-value"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var chains = "fantom";
+
+    var container = document.querySelector("#unity-container");
+    var canvas = document.querySelector("#unity-canvas");
+    var loadingBar = document.querySelector("#unity-loading-bar");
+    var warningBanner = document.querySelector("#unity-warning");
+    const ASPECT_RATIO = 16 / 9;
+
+    function resizeCanvas() {
+      var windowWidth = window.innerWidth;
+      var windowHeight = window.innerHeight;
+      var windowRatio = windowWidth / windowHeight;
+
+      var newWidth, newHeight;
+
+      if (windowRatio > ASPECT_RATIO) {
+        // Window is wider than the target aspect ratio
+        newHeight = windowHeight;
+        newWidth = newHeight * ASPECT_RATIO;
+      } else {
+        // Window is taller than the target aspect ratio
+        newWidth = windowWidth;
+        newHeight = newWidth / ASPECT_RATIO;
+      }
+
+      canvas.style.width = newWidth + "px";
+      canvas.style.height = newHeight + "px";
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas(); // Call once to set initial size
+    // Call resizeCanvas again after 2 seconds
+    setTimeout(resizeCanvas, 2000);
+  </script>
+
+  <script>
+    //########### CHUNK LOADER FUNCTION ###########
+    async function loadAndCombineChunks(chunkUrls) {
+      console.log("Starting to load and combine chunks...");
+
+      const totalChunks = chunkUrls.length;
+      let progressValue = 0;
+      const chunks = new Array(totalChunks); // To maintain the order of chunks
+
+      // Function to update the progress bar
+      const updateProgress = () => {
+        document
+          .querySelector(".progress")
+          .style.setProperty("--progress", `${progressValue}%`);
+      };
+
+      // Create an array of promises with individual progress updates
+      const chunkPromises = chunkUrls.map((url, index) =>
+        fetch(url)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`Failed to load chunk: ${url}`);
+            }
+            return response.arrayBuffer();
+          })
+          .then((data) => {
+            chunks[index] = data; // Store the chunk in the correct order
+            progressValue += 100 / totalChunks;
+            updateProgress(); // Update the progress bar
+            console.log(
+              `Chunk ${index + 1}/${totalChunks} loaded. Progress: ${progressValue.toFixed(
+                2
+              )}%`
+            );
+          })
+      );
+
+      try {
+        // Wait for all chunks to be fetched
+        await Promise.all(chunkPromises);
+        console.log("All chunks have been successfully loaded.");
+      } catch (error) {
+        console.error("Error combining chunks:", error);
+        throw error; // Re-throw the error after logging it
+      }
+
+      // Combine all chunks into a single ArrayBuffer
+      const totalSize = chunks.reduce((sum, chunk) => sum + chunk.byteLength, 0);
+      const combinedBuffer = new Uint8Array(totalSize);
+      let offset = 0;
+
+      for (const chunk of chunks) {
+        combinedBuffer.set(new Uint8Array(chunk), offset);
+        offset += chunk.byteLength;
+      }
+
+      // Create a Blob URL from the combined buffer
+      const combinedBlob = new Blob([combinedBuffer], { type: "application/octet-stream" });
+      const combinedDataUrl = URL.createObjectURL(combinedBlob);
+
+      return combinedDataUrl;
+    }
+  </script>
+
+  <script>
+    // Update the regex to check for both iPhone and iPad
+    const isMobile = /iPhone|iPad/i.test(navigator.userAgent);
+
+    if (isMobile) {
+      // Create a div element for the unsupported message
+      const messageDiv = document.createElement("div");
+
+      // Set the message text
+      messageDiv.innerText =
+        "⚠️ WARNING: iPhone/iPad's WebKit detected. WebKit's RAM management may terminate the browser if memory usage is too high. Would you like to proceed?\n\n(Android, Windows, MacBook systems are recommended for optimal performance.)";
+
+      // Style the message (optional)
+      messageDiv.style.position = "fixed";
+      messageDiv.style.top = "50%";
+      messageDiv.style.left = "50%";
+      messageDiv.style.transform = "translate(-50%, -50%)";
+      messageDiv.style.padding = "20px";
+      messageDiv.style.backgroundColor = "#234567";
+      messageDiv.style.color = "yellow";
+      messageDiv.style.zIndex = "1000";
+      messageDiv.style.borderRadius = "5px";
+      messageDiv.style.textAlign = "center";
+
+      // Create a "Continue" button
+      const continueButton = document.createElement("button");
+      continueButton.innerText = "Proceed Anyway";
+      continueButton.style.marginTop = "15px";
+      continueButton.style.padding = "10px 20px";
+      continueButton.style.backgroundColor = "#ffffff";
+      continueButton.style.color = "#234567";
+      continueButton.style.border = "none";
+      continueButton.style.borderRadius = "5px";
+      continueButton.style.cursor = "pointer";
+
+      // Append the button to the message div
+      messageDiv.appendChild(document.createElement("br"));
+      messageDiv.appendChild(continueButton);
+
+      // Append the message to the body
+      document.body.appendChild(messageDiv);
+
+      // Add click event to the "Continue" button
+      continueButton.addEventListener("click", () => {
+        // Remove the message div
+        document.body.removeChild(messageDiv);
+
+        // Proceed to load Unity as on non-iOS devices
+        loadUnity();
+      });
+    } else {
+      // Load Unity immediately on non-iOS devices
+      loadUnity();
+    }
+
+    //########### MAIN UNITY LOADER ###########
+    function loadUnity() {
+      var container = document.querySelector("#unity-container");
+      var canvas = document.querySelector("#unity-canvas");
+      var loadingBar = document.querySelector("#unity-loading-bar");
+      var warningBanner = document.querySelector("#unity-warning");
+      const progressbar = document.querySelector(".progress");
+
+      // Ensure progressValue is defined or set a default
+      const progressValue = 0; // You can initialize this as needed
+      progressbar.style.setProperty("--progress", `${progressValue}%`);
+
+      // Wrap everything in an async IIFE to await chunk loading
+      (async () => {
+        // Show loading bar
+        loadingBar.style.display = "block";
+
+        // Attempt to detect if Build/build.data exists
+        let combinedDataUrl = null;
+        let buildUrl = "Build";
+        let buildDataUrl = buildUrl + "/build.data"; // the big combined file
+
+        try {
+          // Try a HEAD request to see if build.data is present
+          let response = await fetch(buildDataUrl, {
+            method: "HEAD",
+            cache: "no-store"
+          });
+
+          if (response.ok) {
+            // If build.data is found, skip chunking
+            console.log("build.data found, skipping chunking...");
+            combinedDataUrl = buildDataUrl;
+          } else {
+            // If HEAD fails (404, etc.), do chunking
+            console.log("build.data not found, proceeding with chunking...");
+            const chunkUrls = [
+              "Build/build.data.01",
+              "Build/build.data.02",
+              "Build/build.data.03",
+              "Build/build.data.04",
+              "Build/build.data.05",
+              "Build/build.data.06",
+              "Build/build.data.07",
+              "Build/build.data.08",
+              "Build/build.data.09",
+              "Build/build.data.10",
+              "Build/build.data.11",
+              "Build/build.data.12",
+              "Build/build.data.13",
+              "Build/build.data.14",
+              "Build/build.data.15",
+              "Build/build.data.16",
+              "Build/build.data.17",
+              "Build/build.data.18",
+              "Build/build.data.19"
+            ];
+            combinedDataUrl = await loadAndCombineChunks(chunkUrls);
+          }
+        } catch (error) {
+          // If fetch threw an error, assume build.data doesn't exist
+          console.error("Error checking build.data, proceeding with chunking:", error);
+          const chunkUrls = [
+            "Build/build.data.01",
+            "Build/build.data.02",
+            "Build/build.data.03",
+            "Build/build.data.04",
+            "Build/build.data.05",
+            "Build/build.data.06",
+            "Build/build.data.07",
+            "Build/build.data.08",
+            "Build/build.data.09",
+            "Build/build.data.10",
+            "Build/build.data.11",
+            "Build/build.data.12",
+            "Build/build.data.13",
+            "Build/build.data.14",
+            "Build/build.data.15",
+            "Build/build.data.16",
+            "Build/build.data.17",
+            "Build/build.data.18",
+            "Build/build.data.19"
+          ];
+          combinedDataUrl = await loadAndCombineChunks(chunkUrls);
+        }
+
+        console.log("Final data URL for createUnityInstance:", combinedDataUrl);
+
+        // Show a banner for warnings/errors
+        function unityShowBanner(msg, type) {
+          function updateBannerVisibility() {
+            warningBanner.style.display = warningBanner.children.length
+              ? "block"
+              : "none";
+          }
+
+          var div = document.createElement("div");
+          div.innerHTML = msg;
+          warningBanner.appendChild(div);
+
+          if (type == "error") {
+            div.style = "background: red; padding: 10px;";
+          } else {
+            if (type == "warning") {
+              div.style = "background: yellow; padding: 10px;";
+            }
+            setTimeout(function () {
+              warningBanner.removeChild(div);
+              updateBannerVisibility();
+            }, 5000);
+          }
+          updateBannerVisibility();
+        }
+
+        var loaderUrl = buildUrl + "/Build.loader.js";
+
+        var config = {
+          dataUrl: combinedDataUrl,
+          frameworkUrl: buildUrl + "/Build.framework.js",
+          codeUrl: buildUrl + "/Build.wasm",
+          streamingAssetsUrl: "StreamingAssets",
+          companyName: "Jojo Dream Studio",
+          productName: "QuantumsFate",
+          productVersion: "0.0.1",
+          showBanner: unityShowBanner
+        };
+
+        var script = document.createElement("script");
+        script.src = loaderUrl;
+
+        script.onload = () => {
+          createUnityInstance(canvas, config, (progress) => {
+            // Optionally track progress here if needed
+            // const value = Math.floor(progress * 100);
+            // progressbar.style.setProperty("--progress", `${value}%`);
+          })
+            .then((unityInstance) => {
+              window.unityInstance = unityInstance;
+              loadingBar.style.display = "none";
+              //setTimeout(switchToFantom, 3127);
+            })
+            .catch((message) => {
+              alert(message);
+            });
+        };
+
+        document.body.appendChild(script);
+      })(); // end of async block
+    }
+  </script>
+
+  <script>
+    let deferredPrompt;
+
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+    });
+
+    function showInstallPrompt() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === "accepted") {
+            canvas.style.display = "block"; // Hide the canvas
+          } else {
+            canvas.style.display = "block"; // Hide the canvas
+          }
+          deferredPrompt = null;
+        });
+      }
+    }
+
+
+  </script>
+</body>
+
+</html>
