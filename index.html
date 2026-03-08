@@ -1,6 +1,7 @@
 <!-- HTML structure -->
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -9,38 +10,46 @@
     <link rel="apple-touch-icon" sizes="180x180" href="qf_assets/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="qf_assets/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="qf_assets/favicon-16x16.png">
-    <link rel="manifest" href="/manifest.json">
-    <link rel="stylesheet" href="TemplateData/style.css">
+    <link rel="manifest" href="manifest.json">
     <style>
-        body, html {
+        body,
+        html {
             margin: 0;
             padding: 0;
             height: 100%;
             overflow: hidden;
         }
+
         #unity-container {
             width: 100%;
             height: 100vh;
             overflow: hidden;
         }
+
         #unity-iframe {
             width: 100%;
             height: 100%;
             border: none;
             display: block;
-            overflow: hidden;  /* Hide scrollbars */
+            overflow: hidden;
+            /* Hide scrollbars */
         }
+
         /* Hide scrollbar for Chrome, Safari and Opera */
         #unity-iframe::-webkit-scrollbar {
             display: none;
         }
+
         /* Hide scrollbar for IE, Edge and Firefox */
         #unity-iframe {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
         }
     </style>
 </head>
+
 <body>
     <div id="unity-container">
         <iframe id="unity-iframe" src="game.html"></iframe>
@@ -82,9 +91,9 @@
         document.addEventListener('MSFullscreenChange', handleFullscreenChange);
 
         function handleFullscreenChange() {
-            isFullscreen = !!(document.fullscreenElement || document.mozFullScreenElement || 
-                              document.webkitFullscreenElement || document.msFullscreenElement);
-            
+            isFullscreen = !!(document.fullscreenElement || document.mozFullScreenElement ||
+                document.webkitFullscreenElement || document.msFullscreenElement);
+
             if (isFullscreen) {
                 // Optionally resize or adjust the Unity content when entering fullscreen
                 iframe.contentWindow.postMessage('enterFullscreen', '*');
@@ -94,7 +103,7 @@
             }
         }
         // Add this new event listener to receive messages from the iframe
-        window.addEventListener('message', function(event) {
+        window.addEventListener('message', function (event) {
             // Check if the message is from your iframe
             if (event.source === iframe.contentWindow) {
                 if (event.data === 'toggleFullscreen') {
@@ -104,4 +113,5 @@
         });
     </script>
 </body>
+
 </html>
