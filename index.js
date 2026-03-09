@@ -1,9 +1,9 @@
 
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
-import { getAuth, signInWithPopup, signOut, GoogleAuthProvider, OAuthProvider }   from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
+import { getAuth, signInWithPopup, signOut, GoogleAuthProvider, OAuthProvider } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
 import { getFirestore, collection, serverTimestamp, addDoc, setDoc, getDoc, doc } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
-import { getFunctions, httpsCallable }                                            from "https://www.gstatic.com/firebasejs/11.1.0/firebase-functions.js";
+import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-functions.js";
 
 
 console.log("index.js imported");
@@ -12,7 +12,7 @@ var providerNEW;
 var signerNEW;
 var userAccountNEW;
 var AAornot;
-const MasterChainID = 43113 ;
+const MasterChainID = 43113;
 
 const call_type = {
   CONNECT: 1,
@@ -192,14 +192,11 @@ function CreateWeb2Wallet() {
 
 
 // Step 1: Define your RPC URL and Chain ID
-const AA_rpcUrl = 'https://rpc.Avaxlabs.com';//'https://rpc.testnet.Avaxlabs.com';
-const AA_chainId = 146;//57054;//64165;
+const AA_rpcUrl = 'https://api.avax-test.network/ext/bc/C/rpc';
+const AA_chainId = 43113;
 
 // Step 2: Define the provider with the custom RPC
-const AA_provider = new ethers.JsonRpcProvider(AA_rpcUrl, {
-  name: 'Avax',
-  chainId: AA_chainId,
-});
+const AA_provider = new ethers.JsonRpcProvider(AA_rpcUrl, AA_chainId);
 
 
 
@@ -217,6 +214,7 @@ async function getSBalance(walletAddress) {
   // Log and respond with the balance
   response(response_type.BALANCE, balanceInEthRounded);
 
+  return balanceInEthRounded;
 }
 
 async function sendBalanceinfo() {
@@ -1021,7 +1019,7 @@ async function response(respondType, message) {
 
   var responseString = "<response>" + respondType + "_%_" + message + "</response>"
 
-  
+
   window.unityInstance.SendMessage("JavascriptBridgeManager", "ResponseToUnity", responseString);
 
 }
@@ -1316,32 +1314,37 @@ async function GoogleSaveInfo(splited_text) {
 async function GetUserInfo(user) {
   console.log("[____] GetUserInfo()");
   try {
-        response(response_type.GOOGLE_LOADING_INFO);
+    response(response_type.GOOGLE_LOADING_INFO);
 
-        const loginFn = httpsCallable(cloud_functions, 'login');
-        const userInfo = await loginFn({});
-
-
-        console.log("Firebase Function Response:", userInfo.data);
+    const loginFn = httpsCallable(cloud_functions, 'login');
+    const userInfo = await loginFn({});
 
 
-        console.log('Account Address: ', userInfo.data.address);
-        console.log('Private Key: ', userInfo.data.privateKey);
-        console.log('Mnemonic: ', userInfo.data.mnemonic);
-
-        AAornot = true;
-        GLOBALWALLETADDRESS = userInfo.data.address;
-        // sendBalanceinfo();
-        AAornot = true;
+    console.log("Firebase Function Response:", userInfo.data);
 
 
-        const combinedRespond = userInfo.data.address + "_%%_" +
-                                userInfo.data.privateKey + "_%%_" +
-                                userInfo.data.mnemonic; 
-        
-        console.log("[____] Login with info:", combinedRespond);
-        
-        response(response_type.GOOGLE_SIGNIN_INFO, combinedRespond)
+    console.log('Account Address: ', userInfo.data.address);
+    console.log('Private Key: ', userInfo.data.privateKey);
+    console.log('Mnemonic: ', userInfo.data.mnemonic);
+
+    AAornot = true;
+    GLOBALWALLETADDRESS = userInfo.data.address;
+    // sendBalanceinfo();
+    AAornot = true;
+
+
+    const combinedRespond = userInfo.data.address + "_%%_" +
+      userInfo.data.privateKey + "_%%_" +
+      userInfo.data.mnemonic;
+
+    console.log("[____] Login with info:", combinedRespond);
+
+    response(response_type.GOOGLE_SIGNIN_INFO, combinedRespond)
+
+    ConnectAAWallet(userInfo.data.address, userInfo.data.privateKey);
+
+    const balance = await getSBalance(GLOBALWALLETADDRESS);
+    console.log("[____] Balance: ", balance);
 
   } catch (error) {
     console.error("[____] Error Reading User Info: ", error);
