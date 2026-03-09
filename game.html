@@ -106,10 +106,194 @@
       <div class="video-container" style="
             width: 100%;
             height: 100%;
+            max-height: 80vh;
             display: flex;
             justify-content: center;
-            align-items: center;">
-        <video src="" autoplay loop muted style="display: none;"></video>
+            align-items: center;
+            pointer-events: none;
+          ">
+        <svg class="mecha-svg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <!-- MECHA BODY PARTS DEFINITIONS -->
+
+    <!-- Upper Leg (Thigh) -->
+    <g id="leg-upper">
+      <path class="mech-path" d="M -15,-15 L 20,-15 L 35,20 L 25,60 L -10,60 L -25,20 Z" />
+      <path class="mech-path" d="M 15,-10 L 45,0 L 40,30 L 25,35 Z" />
+      <path class="mech-path" d="M 5,10 L 15,10 L 10,40 L 0,40 Z" />
+      <circle class="mech-path" cx="0" cy="0" r="10" />
+    </g>
+
+    <!-- Lower Leg (Calf & Knee) -->
+    <g id="leg-lower">
+      <!-- Thruster Flame -->
+      <path class="flame" d="M -40,40 L -100,30 L -80,55 L -130,65 L -70,80 Z" />
+      <!-- Main Calf Structure -->
+      <path class="mech-path" d="M -15,-10 L 25,-10 L 40,30 L 20,80 L -10,80 L -20,40 Z" />
+      <path class="mech-path" d="M 15,-20 L 50,-30 L 45,10 L 30,20 L 15,0 Z" />
+      <path class="mech-path" d="M -5,10 L 30,20 L 25,60 L 0,50 Z" />
+      <path class="mech-path" d="M -20,20 L -60,40 L -50,70 L -15,60 Z" />
+      <circle class="mech-path" cx="0" cy="0" r="12" />
+    </g>
+
+    <!-- Foot -->
+    <g id="foot">
+      <path class="mech-path" d="M 10,0 L 30,-15 L 70,10 L 80,25 L 15,20 Z" />
+      <path class="mech-path" d="M -10,5 L -40,0 L -45,20 L -20,15 Z" />
+      <path class="mech-path" d="M -15,-10 L 15,-15 L 20,5 L -10,10 Z" />
+      <circle class="mech-path" cx="0" cy="0" r="8" />
+    </g>
+
+    <!-- Upper Arm (Shoulder & Bicep) -->
+    <g id="arm-upper">
+      <!-- Massive Pauldron -->
+      <path class="mech-path" d="M -25,-30 L 30,-40 L 60,10 L 45,30 L 15,20 L -10,10 L -30,-5 Z" />
+      <path class="mech-path" d="M -10,-45 L 40,-55 L 70,0 L 50,15 Z" />
+      <path class="mech-path" d="M 10,-35 L 25,-40 L 35,-15 L 15,-10 Z" />
+      <!-- Bicep -->
+      <path class="mech-path" d="M -12,10 L 15,5 L 20,45 L -10,45 Z" />
+      <circle class="mech-path" cx="0" cy="0" r="15" />
+    </g>
+
+    <!-- Lower Arm (Forearm & Weapon Housing) -->
+    <g id="arm-lower">
+      <path class="mech-path" d="M -15,-10 L -35,5 L -25,25 L -10,15 Z" />
+      <path class="mech-path" d="M -12,0 L 20,-5 L 35,30 L 20,65 L -15,60 Z" />
+      <path class="mech-path" d="M 25,10 L 60,15 L 50,70 L 20,40 Z" />
+      <circle class="mech-path" cx="0" cy="0" r="10" />
+    </g>
+
+    <!-- Hand -->
+    <g id="hand">
+      <path class="mech-path" d="M -5,-5 L 15,-10 L 25,5 L 15,20 L -5,15 L -10,5 Z" />
+      <path class="mech-path" d="M 15,-10 L 20,-5 L 10,5" />
+      <path class="mech-path" d="M 25,5 L 20,10 L 5,0" />
+      <circle class="mech-path" cx="0" cy="0" r="6" />
+    </g>
+
+    <!-- Head -->
+    <g id="head">
+      <!-- Base Collar / Neck -->
+      <path class="mech-path" d="M -20,-10 L 20,-10 L 25,-25 L -25,-25 Z" />
+      <!-- Extended Chin / Jaw Guard -->
+      <path class="mech-path" d="M 15,-15 L 35,-5 L 25,-25 Z" />
+      <path class="mech-path" d="M 5,-10 L 20,5 L 15,-15 Z" />
+      <!-- Main Sensor Casing (Cranium) -->
+      <path class="mech-path" d="M -25,-25 L 25,-25 L 35,-40 L -15,-50 L -35,-35 Z" />
+      <!-- Optical Visor Cutout (Black) -->
+      <polygon class="mech-dark" points="0,-28 28,-28 32,-35 5,-35" />
+      <!-- Secondary Optical Sensor (Black) -->
+      <polygon class="mech-dark" points="-10,-30 -2,-30 0,-34 -8,-34" />
+      <!-- Side Communications Pod -->
+      <path class="mech-path" d="M -5,-20 L 5,-20 L 10,-45 L -10,-40 Z" />
+      <!-- Sweeping Rear Antennas -->
+      <path class="mech-path" d="M -15,-50 L -50,-65 L -20,-45 Z" />
+      <path class="mech-path" d="M -25,-40 L -60,-45 L -30,-35 Z" />
+      <!-- Small Forward Fin (Tactical) -->
+      <path class="mech-path" d="M 5,-45 L 20,-60 L 15,-40 Z" />
+      <circle class="mech-path" cx="0" cy="0" r="8" />
+    </g>
+
+    <!-- Torso -->
+    <g id="torso">
+      <!-- Backpack Flames -->
+      <path class="flame" d="M -80,-90 L -250,-110 L -220,-80 L -300,-60 L -190,-40 Z" />
+      
+      <!-- Backpack & Binders -->
+      <path class="mech-path" d="M -40,-100 L -80,-110 L -90,-40 L -30,-50 Z" />
+      <path class="mech-path" d="M -70,-90 L -160,-170 L -130,-60 L -80,-70 Z" />
+      <path class="mech-path" d="M -85,-50 L -150,-20 L -110,25 L -70,0 Z" />
+
+      <!-- Chest Block -->
+      <path class="mech-path" d="M -30,-40 L 40,-40 L 55,-80 L 45,-110 L -40,-110 L -50,-80 Z" />
+      <path class="mech-path" d="M 10,-40 L 50,-50 L 65,-90 L 30,-100 L -10,-90 Z" />
+      <path class="mech-path" d="M 15,-55 L 45,-60 L 55,-85 L 25,-85 Z" />
+      <path class="mech-path" d="M -25,-110 L 30,-110 L 35,-130 L -30,-130 Z" />
+      
+      <!-- Abdomen & Pelvis -->
+      <path class="mech-path" d="M -20,-40 L 25,-40 L 20,-10 L -20,-10 Z" />
+      <path class="mech-path" d="M -25,-10 L 25,-10 L 20,15 L -20,15 Z" />
+      
+      <!-- Skirt Armor -->
+      <path class="mech-path" d="M -10,0 L 30,5 L 40,35 L 10,25 Z" />
+      <path class="mech-path" d="M -15,-5 L -40,-10 L -45,30 L -20,25 Z" />
+      <path class="mech-path" d="M 5,5 L 20,10 L 25,25 L 10,20 Z" />
+    </g>
+  </defs>
+
+  <!-- BACKGROUND SPEED LINES -->
+  <g class="speed-lines-container">
+    <line x1="1200" y1="100" x2="1600" y2="100" class="speed-line" style="--d: 0.6s; --delay: 0.1s; stroke-width: 2;" />
+    <line x1="1200" y1="250" x2="1800" y2="250" class="speed-line" style="--d: 0.8s; --delay: 0.4s; stroke-width: 4;" />
+    <line x1="1200" y1="400" x2="1500" y2="400" class="speed-line" style="--d: 0.5s; --delay: 0.2s; stroke-width: 1;" />
+    <line x1="1200" y1="600" x2="1700" y2="600" class="speed-line" style="--d: 0.7s; --delay: 0.7s; stroke-width: 3;" />
+    <line x1="1200" y1="750" x2="1400" y2="750" class="speed-line" style="--d: 0.4s; --delay: 0.0s; stroke-width: 2;" />
+    <line x1="1200" y1="850" x2="1900" y2="850" class="speed-line" style="--d: 0.9s; --delay: 0.5s; stroke-width: 5;" />
+    <line x1="1200" y1="950" x2="1500" y2="950" class="speed-line" style="--d: 0.6s; --delay: 0.3s; stroke-width: 2;" />
+    <line x1="1200" y1="150" x2="1450" y2="150" class="speed-line" style="--d: 0.55s; --delay: 0.8s; stroke-width: 3;" />
+    <line x1="1200" y1="350" x2="1650" y2="350" class="speed-line" style="--d: 0.75s; --delay: 0.2s; stroke-width: 2;" />
+    <line x1="1200" y1="550" x2="1350" y2="550" class="speed-line" style="--d: 0.45s; --delay: 0.6s; stroke-width: 4;" />
+    <line x1="1200" y1="800" x2="1550" y2="800" class="speed-line" style="--d: 0.65s; --delay: 0.9s; stroke-width: 1;" />
+    <line x1="1200" y1="50"  x2="1700" y2="50"  class="speed-line" style="--d: 0.85s; --delay: 0.15s; stroke-width: 2;" />
+    <line x1="1200" y1="450" x2="1400" y2="450" class="speed-line" style="--d: 0.35s; --delay: 0.55s; stroke-width: 1;" />
+    <line x1="1200" y1="650" x2="1900" y2="650" class="speed-line" style="--d: 0.95s; --delay: 0.25s; stroke-width: 4;" />
+  </g>
+
+  <!-- MECHA RIG -->
+  <g class="bounce-wrapper">
+    
+    <!-- LEFT ARM (Background Layer) -->
+    <g class="l-bicep">
+      <use href="#arm-upper" />
+      <g class="l-forearm">
+        <use href="#arm-lower" />
+        <g transform="translate(10, 60)">
+          <use href="#hand" />
+        </g>
+      </g>
+    </g>
+
+    <!-- LEFT LEG (Background Layer) -->
+    <g class="l-thigh">
+      <use href="#leg-upper" />
+      <g class="l-calf">
+        <use href="#leg-lower" />
+        <g class="l-foot">
+          <use href="#foot" />
+        </g>
+      </g>
+    </g>
+
+    <!-- TORSO & HEAD -->
+    <use href="#torso" />
+    <g class="head-bob">
+      <use href="#head" />
+    </g>
+
+    <!-- RIGHT LEG (Foreground Layer) -->
+    <g class="r-thigh">
+      <use href="#leg-upper" />
+      <g class="r-calf">
+        <use href="#leg-lower" />
+        <g class="r-foot">
+          <use href="#foot" />
+        </g>
+      </g>
+    </g>
+
+    <!-- RIGHT ARM (Foreground Layer) -->
+    <g class="r-bicep">
+      <use href="#arm-upper" />
+      <g class="r-forearm">
+        <use href="#arm-lower" />
+        <g transform="translate(10, 60)">
+          <use href="#hand" />
+        </g>
+      </g>
+    </g>
+
+  </g>
+</svg>
       </div>
 
       <div class="progress">
