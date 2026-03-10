@@ -1,4 +1,496 @@
+3.x].value[(32 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati13.x].value[(32 >> 2) + 2]));
+                                u_xlat7.xyw = vec3(uintBitsToFloat(inMatrices_buf[u_xlati13.x].value[(48 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati13.x].value[(48 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati13.x].value[(48 >> 2) + 2]));
+                                u_xlat8.x = u_xlat4.x;
+                                u_xlat8.y = u_xlat5.x;
+                                u_xlat8.z = u_xlat6.x;
+                                u_xlat8.w = u_xlat7.x;
+                                u_xlat9.x = u_xlat4.y;
+                                u_xlat9.y = u_xlat5.y;
+                                u_xlat9.z = u_xlat6.y;
+                                u_xlat9.w = u_xlat7.y;
+                                u_xlat7.x = u_xlat4.z;
+                                u_xlat7.y = u_xlat5.z;
+                                u_xlat7.z = u_xlat6.z;
+                                u_xlat4.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati13.y].value[(0 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati13.y].value[(0 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati13.y].value[(0 >> 2) + 2]));
+                                u_xlat5.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati13.y].value[(16 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati13.y].value[(16 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati13.y].value[(16 >> 2) + 2]));
+                                u_xlat6.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati13.y].value[(32 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati13.y].value[(32 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati13.y].value[(32 >> 2) + 2]));
+                                u_xlat10.xyw = vec3(uintBitsToFloat(inMatrices_buf[u_xlati13.y].value[(48 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati13.y].value[(48 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati13.y].value[(48 >> 2) + 2]));
+                                u_xlat11.x = u_xlat4.x;
+                                u_xlat11.y = u_xlat5.x;
+                                u_xlat11.z = u_xlat6.x;
+                                u_xlat11.w = u_xlat10.x;
+                                u_xlat11 = u_xlat3.yyyy * u_xlat11;
+                                u_xlat12.x = u_xlat4.y;
+                                u_xlat12.y = u_xlat5.y;
+                                u_xlat12.z = u_xlat6.y;
+                                u_xlat12.w = u_xlat10.y;
+                                u_xlat12 = u_xlat3.yyyy * u_xlat12;
+                                u_xlat10.x = u_xlat4.z;
+                                u_xlat10.y = u_xlat5.z;
+                                u_xlat10.z = u_xlat6.z;
+                                u_xlat4 = u_xlat3.yyyy * u_xlat10;
+                                u_xlat5 = u_xlat8 * u_xlat3.xxxx + u_xlat11;
+                                u_xlat6 = u_xlat9 * u_xlat3.xxxx + u_xlat12;
+                                u_xlat3 = u_xlat7 * u_xlat3.xxxx + u_xlat4;
+                                u_xlat4.xyz = u_xlat1.xyz;
+                                u_xlat4.w = 1.0;
+                                u_xlat7.x = dot(u_xlat5, u_xlat4);
+                                u_xlat7.y = dot(u_xlat6, u_xlat4);
+                                u_xlat7.z = dot(u_xlat3, u_xlat4);
+                                u_xlat2.z = u_xlat1.w;
+                                u_xlat7.w = dot(u_xlat5.yzx, u_xlat2.xyz);
+                                u_xlat1.x = dot(u_xlat6.yzx, u_xlat2.xyz);
+                                u_xlat1.y = dot(u_xlat3.yzx, u_xlat2.xyz);
+                                inOutVertices1_buf[u_xlatu0].value[(0 >> 2)] = uint(floatBitsToUint(u_xlat7.x));
+                                inOutVertices1_buf[u_xlatu0].value[(0 >> 2) + 1] = uint(floatBitsToUint(u_xlat7.y));
+                                inOutVertices1_buf[u_xlatu0].value[(0 >> 2) + 2] = uint(floatBitsToUint(u_xlat7.z));
+                                inOutVertices1_buf[u_xlatu0].value[(0 >> 2) + 3] = uint(floatBitsToUint(u_xlat7.w));
+                                inOutVertices1_buf[u_xlatu0].value[(16 >> 2)] = uint(floatBitsToUint(u_xlat1.x));
+                                inOutVertices1_buf[u_xlatu0].value[(16 >> 2) + 1] = uint(floatBitsToUint(u_xlat1.y));
+                            }
+                        } else {
+                            u_xlatb0 = gl_GlobalInvocationID.x>=g_BatchOffsets[0].x;
+                            if(u_xlatb0){
+                                u_xlatu0 = gl_GlobalInvocationID.x + (-g_BatchOffsets[0].x);
+                                u_xlatb13 = u_xlatu0<g_VertCounts[0].x;
+                                if(u_xlatb13){
+                                    u_xlat1 = vec4(uintBitsToFloat(inOutVertices0_buf[u_xlatu0].value[(0 >> 2) + 0]), uintBitsToFloat(inOutVertices0_buf[u_xlatu0].value[(0 >> 2) + 1]), uintBitsToFloat(inOutVertices0_buf[u_xlatu0].value[(0 >> 2) + 2]), uintBitsToFloat(inOutVertices0_buf[u_xlatu0].value[(0 >> 2) + 3]));
+                                    u_xlat2.xy = vec2(uintBitsToFloat(inOutVertices0_buf[u_xlatu0].value[(16 >> 2) + 0]), uintBitsToFloat(inOutVertices0_buf[u_xlatu0].value[(16 >> 2) + 1]));
+                                    u_xlat3 = vec4(uintBitsToFloat(inSkin0_buf[u_xlatu0].value[(0 >> 2) + 0]), uintBitsToFloat(inSkin0_buf[u_xlatu0].value[(0 >> 2) + 1]), uintBitsToFloat(inSkin0_buf[u_xlatu0].value[(0 >> 2) + 2]), uintBitsToFloat(inSkin0_buf[u_xlatu0].value[(0 >> 2) + 3]));
+                                    u_xlati13.xy = floatBitsToInt(u_xlat3.zw) + ivec2(g_PoseOffsets[0].xx);
+                                    u_xlat4.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati13.x].value[(0 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati13.x].value[(0 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati13.x].value[(0 >> 2) + 2]));
+                                    u_xlat5.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati13.x].value[(16 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati13.x].value[(16 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati13.x].value[(16 >> 2) + 2]));
+                                    u_xlat6.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati13.x].value[(32 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati13.x].value[(32 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati13.x].value[(32 >> 2) + 2]));
+                                    u_xlat7.xyw = vec3(uintBitsToFloat(inMatrices_buf[u_xlati13.x].value[(48 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati13.x].value[(48 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati13.x].value[(48 >> 2) + 2]));
+                                    u_xlat8.x = u_xlat4.x;
+                                    u_xlat8.y = u_xlat5.x;
+                                    u_xlat8.z = u_xlat6.x;
+                                    u_xlat8.w = u_xlat7.x;
+                                    u_xlat9.x = u_xlat4.y;
+                                    u_xlat9.y = u_xlat5.y;
+                                    u_xlat9.z = u_xlat6.y;
+                                    u_xlat9.w = u_xlat7.y;
+                                    u_xlat7.x = u_xlat4.z;
+                                    u_xlat7.y = u_xlat5.z;
+                                    u_xlat7.z = u_xlat6.z;
+                                    u_xlat4.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati13.y].value[(0 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati13.y].value[(0 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati13.y].value[(0 >> 2) + 2]));
+                                    u_xlat5.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati13.y].value[(16 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati13.y].value[(16 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati13.y].value[(16 >> 2) + 2]));
+                                    u_xlat6.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati13.y].value[(32 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati13.y].value[(32 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati13.y].value[(32 >> 2) + 2]));
+                                    u_xlat10.xyw = vec3(uintBitsToFloat(inMatrices_buf[u_xlati13.y].value[(48 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati13.y].value[(48 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati13.y].value[(48 >> 2) + 2]));
+                                    u_xlat11.x = u_xlat4.x;
+                                    u_xlat11.y = u_xlat5.x;
+                                    u_xlat11.z = u_xlat6.x;
+                                    u_xlat11.w = u_xlat10.x;
+                                    u_xlat11 = u_xlat3.yyyy * u_xlat11;
+                                    u_xlat12.x = u_xlat4.y;
+                                    u_xlat12.y = u_xlat5.y;
+                                    u_xlat12.z = u_xlat6.y;
+                                    u_xlat12.w = u_xlat10.y;
+                                    u_xlat12 = u_xlat3.yyyy * u_xlat12;
+                                    u_xlat10.x = u_xlat4.z;
+                                    u_xlat10.y = u_xlat5.z;
+                                    u_xlat10.z = u_xlat6.z;
+                                    u_xlat4 = u_xlat3.yyyy * u_xlat10;
+                                    u_xlat5 = u_xlat8 * u_xlat3.xxxx + u_xlat11;
+                                    u_xlat6 = u_xlat9 * u_xlat3.xxxx + u_xlat12;
+                                    u_xlat3 = u_xlat7 * u_xlat3.xxxx + u_xlat4;
+                                    u_xlat4.xyz = u_xlat1.xyz;
+                                    u_xlat4.w = 1.0;
+                                    u_xlat7.x = dot(u_xlat5, u_xlat4);
+                                    u_xlat7.y = dot(u_xlat6, u_xlat4);
+                                    u_xlat7.z = dot(u_xlat3, u_xlat4);
+                                    u_xlat2.z = u_xlat1.w;
+                                    u_xlat7.w = dot(u_xlat5.yzx, u_xlat2.xyz);
+                                    u_xlat1.x = dot(u_xlat6.yzx, u_xlat2.xyz);
+                                    u_xlat1.y = dot(u_xlat3.yzx, u_xlat2.xyz);
+                                    inOutVertices0_buf[u_xlatu0].value[(0 >> 2)] = uint(floatBitsToUint(u_xlat7.x));
+                                    inOutVertices0_buf[u_xlatu0].value[(0 >> 2) + 1] = uint(floatBitsToUint(u_xlat7.y));
+                                    inOutVertices0_buf[u_xlatu0].value[(0 >> 2) + 2] = uint(floatBitsToUint(u_xlat7.z));
+                                    inOutVertices0_buf[u_xlatu0].value[(0 >> 2) + 3] = uint(floatBitsToUint(u_xlat7.w));
+                                    inOutVertices0_buf[u_xlatu0].value[(16 >> 2)] = uint(floatBitsToUint(u_xlat1.x));
+                                    inOutVertices0_buf[u_xlatu0].value[(16 >> 2) + 1] = uint(floatBitsToUint(u_xlat1.y));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return;
+}
+     @         @                                batchMainInPlace               ComputeSkinInPlaceCBuffer           ÿÿÿÿÿÿÿÿ              inSkin0         ÿÿÿÿÿÿÿÿ   inSkin1        ÿÿÿÿÿÿÿÿ   inSkin2        ÿÿÿÿÿÿÿÿ   inSkin3        ÿÿÿÿÿÿÿÿ   inSkin4        ÿÿÿÿÿÿÿÿ   inSkin5        ÿÿÿÿÿÿÿÿ   inSkin6        ÿÿÿÿÿÿÿÿ
+   inMatrices         ÿÿÿÿÿÿÿÿ      inOutVertices0          ÿÿÿÿÿÿÿÿ   inOutVertices1         ÿÿÿÿÿÿÿÿ   inOutVertices2         ÿÿÿÿÿÿÿÿ   inOutVertices3         ÿÿÿÿÿÿÿÿ   inOutVertices4         ÿÿÿÿÿÿÿÿ   inOutVertices5         ÿÿÿÿÿÿÿÿ   inOutVertices6         ÿÿÿÿÿÿÿÿƒ¿  #version 310 es
+
+#define HLSLCC_ENABLE_UNIFORM_BUFFERS 1
+#if HLSLCC_ENABLE_UNIFORM_BUFFERS
+#define UNITY_UNIFORM
+#else
+#define UNITY_UNIFORM uniform
+#endif
+#define UNITY_SUPPORTS_UNIFORM_LOCATION 1
+#if UNITY_SUPPORTS_UNIFORM_LOCATION
+#define UNITY_LOCATION(x) layout(location = x)
+#define UNITY_BINDING(x) layout(binding = x, std140)
+#else
+#define UNITY_LOCATION(x)
+#define UNITY_BINDING(x) layout(std140)
+#endif
+UNITY_BINDING(0) uniform ComputeSkinInPlaceCBuffer {
+	uvec4 g_VertCounts[2];
+	uvec4 g_BatchOffsets[2];
+	uvec4 g_PoseOffsets[2];
+	uint g_poseBufferMaxIndex;
+};
+ struct inSkin0_type {
+	uint[4] value;
+};
+
+layout(std430, binding = 7) readonly buffer inSkin0 {
+	inSkin0_type inSkin0_buf[];
+};
+ struct inSkin1_type {
+	uint[4] value;
+};
+
+layout(std430, binding = 8) readonly buffer inSkin1 {
+	inSkin1_type inSkin1_buf[];
+};
+ struct inSkin2_type {
+	uint[4] value;
+};
+
+layout(std430, binding = 9) readonly buffer inSkin2 {
+	inSkin2_type inSkin2_buf[];
+};
+ struct inSkin3_type {
+	uint[4] value;
+};
+
+layout(std430, binding = 10) readonly buffer inSkin3 {
+	inSkin3_type inSkin3_buf[];
+};
+ struct inSkin4_type {
+	uint[4] value;
+};
+
+layout(std430, binding = 11) readonly buffer inSkin4 {
+	inSkin4_type inSkin4_buf[];
+};
+ struct inSkin5_type {
+	uint[4] value;
+};
+
+layout(std430, binding = 12) readonly buffer inSkin5 {
+	inSkin5_type inSkin5_buf[];
+};
+ struct inSkin6_type {
+	uint[4] value;
+};
+
+layout(std430, binding = 13) readonly buffer inSkin6 {
+	inSkin6_type inSkin6_buf[];
+};
+ struct inMatrices_type {
+	uint[16] value;
+};
+
+layout(std430, binding = 14) readonly buffer inMatrices {
+	inMatrices_type inMatrices_buf[];
+};
+ struct inOutVertices0_type {
+	uint[10] value;
+};
+
+layout(std430, binding = 0) buffer inOutVertices0 {
+	inOutVertices0_type inOutVertices0_buf[];
+};
+ struct inOutVertices1_type {
+	uint[10] value;
+};
+
+layout(std430, binding = 1) buffer inOutVertices1 {
+	inOutVertices1_type inOutVertices1_buf[];
+};
+ struct inOutVertices2_type {
+	uint[10] value;
+};
+
+layout(std430, binding = 2) buffer inOutVertices2 {
+	inOutVertices2_type inOutVertices2_buf[];
+};
+ struct inOutVertices3_type {
+	uint[10] value;
+};
+
+layout(std430, binding = 3) buffer inOutVertices3 {
+	inOutVertices3_type inOutVertices3_buf[];
+};
+ struct inOutVertices4_type {
+	uint[10] value;
+};
+
+layout(std430, binding = 4) buffer inOutVertices4 {
+	inOutVertices4_type inOutVertices4_buf[];
+};
+ struct inOutVertices5_type {
+	uint[10] value;
+};
+
+layout(std430, binding = 5) buffer inOutVertices5 {
+	inOutVertices5_type inOutVertices5_buf[];
+};
+ struct inOutVertices6_type {
+	uint[10] value;
+};
+
+layout(std430, binding = 6) buffer inOutVertices6 {
+	inOutVertices6_type inOutVertices6_buf[];
+};
+uint u_xlatu0;
+bool u_xlatb0;
+vec4 u_xlat1;
+vec4 u_xlat2;
+vec3 u_xlat3;
+vec4 u_xlat4;
+vec4 u_xlat5;
+vec4 u_xlat6;
+vec4 u_xlat7;
+vec4 u_xlat8;
+vec4 u_xlat9;
+vec4 u_xlat10;
+vec4 u_xlat11;
+vec4 u_xlat12;
+vec4 u_xlat13;
+float u_xlat14;
+ivec2 u_xlati14;
+bool u_xlatb14;
+layout(local_size_x = 64, local_size_y = 1, local_size_z = 1) in;
+void main()
+{
+    u_xlatb0 = gl_GlobalInvocationID.x>=g_BatchOffsets[1].z;
+    if(u_xlatb0){
+        u_xlatu0 = gl_GlobalInvocationID.x + (-g_BatchOffsets[1].z);
+        u_xlatb14 = u_xlatu0<g_VertCounts[1].z;
+        if(u_xlatb14){
+            u_xlat1 = vec4(uintBitsToFloat(inOutVertices6_buf[u_xlatu0].value[(0 >> 2) + 3]), uintBitsToFloat(inOutVertices6_buf[u_xlatu0].value[(0 >> 2) + 0]), uintBitsToFloat(inOutVertices6_buf[u_xlatu0].value[(0 >> 2) + 1]), uintBitsToFloat(inOutVertices6_buf[u_xlatu0].value[(0 >> 2) + 2]));
+            u_xlat2 = vec4(uintBitsToFloat(inOutVertices6_buf[u_xlatu0].value[(16 >> 2) + 0]), uintBitsToFloat(inOutVertices6_buf[u_xlatu0].value[(16 >> 2) + 1]), uintBitsToFloat(inOutVertices6_buf[u_xlatu0].value[(16 >> 2) + 2]), uintBitsToFloat(inOutVertices6_buf[u_xlatu0].value[(16 >> 2) + 3]));
+            u_xlat3.z = uintBitsToFloat(inOutVertices6_buf[u_xlatu0].value[(32 >> 2) + 0]);
+            u_xlat4 = vec4(uintBitsToFloat(inSkin6_buf[u_xlatu0].value[(0 >> 2) + 0]), uintBitsToFloat(inSkin6_buf[u_xlatu0].value[(0 >> 2) + 1]), uintBitsToFloat(inSkin6_buf[u_xlatu0].value[(0 >> 2) + 2]), uintBitsToFloat(inSkin6_buf[u_xlatu0].value[(0 >> 2) + 3]));
+            u_xlati14.xy = floatBitsToInt(u_xlat4.zw) + ivec2(g_PoseOffsets[1].zz);
+            u_xlat5.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(0 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(0 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(0 >> 2) + 2]));
+            u_xlat6.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(16 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(16 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(16 >> 2) + 2]));
+            u_xlat7.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(32 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(32 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(32 >> 2) + 2]));
+            u_xlat8.xyw = vec3(uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(48 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(48 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(48 >> 2) + 2]));
+            u_xlat9.x = u_xlat5.x;
+            u_xlat9.y = u_xlat6.x;
+            u_xlat9.z = u_xlat7.x;
+            u_xlat9.w = u_xlat8.x;
+            u_xlat10.x = u_xlat5.y;
+            u_xlat10.y = u_xlat6.y;
+            u_xlat10.z = u_xlat7.y;
+            u_xlat10.w = u_xlat8.y;
+            u_xlat8.x = u_xlat5.z;
+            u_xlat8.y = u_xlat6.z;
+            u_xlat8.z = u_xlat7.z;
+            u_xlat5.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(0 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(0 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(0 >> 2) + 2]));
+            u_xlat6.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(16 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(16 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(16 >> 2) + 2]));
+            u_xlat7.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(32 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(32 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(32 >> 2) + 2]));
+            u_xlat11.xyw = vec3(uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(48 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(48 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(48 >> 2) + 2]));
+            u_xlat12.x = u_xlat5.x;
+            u_xlat12.y = u_xlat6.x;
+            u_xlat12.z = u_xlat7.x;
+            u_xlat12.w = u_xlat11.x;
+            u_xlat12 = u_xlat4.yyyy * u_xlat12;
+            u_xlat13.x = u_xlat5.y;
+            u_xlat13.y = u_xlat6.y;
+            u_xlat13.z = u_xlat7.y;
+            u_xlat13.w = u_xlat11.y;
+            u_xlat13 = u_xlat4.yyyy * u_xlat13;
+            u_xlat11.x = u_xlat5.z;
+            u_xlat11.y = u_xlat6.z;
+            u_xlat11.z = u_xlat7.z;
+            u_xlat5 = u_xlat4.yyyy * u_xlat11;
+            u_xlat6 = u_xlat9 * u_xlat4.xxxx + u_xlat12;
+            u_xlat7 = u_xlat10 * u_xlat4.xxxx + u_xlat13;
+            u_xlat4 = u_xlat8 * u_xlat4.xxxx + u_xlat5;
+            u_xlat5.xyz = u_xlat1.yzw;
+            u_xlat5.w = 1.0;
+            u_xlat8.x = dot(u_xlat6, u_xlat5);
+            u_xlat8.y = dot(u_xlat7, u_xlat5);
+            u_xlat8.z = dot(u_xlat4, u_xlat5);
+            u_xlat1.yz = u_xlat2.xy;
+            u_xlat8.w = dot(u_xlat6.xyz, u_xlat1.xyz);
+            u_xlat5.x = dot(u_xlat7.xyz, u_xlat1.xyz);
+            u_xlat5.y = dot(u_xlat4.xyz, u_xlat1.xyz);
+            u_xlat3.xy = u_xlat2.zw;
+            u_xlat5.z = dot(u_xlat6.xyz, u_xlat3.xyz);
+            u_xlat5.w = dot(u_xlat7.xyz, u_xlat3.xyz);
+            u_xlat14 = dot(u_xlat4.xyz, u_xlat3.xyz);
+            inOutVertices6_buf[u_xlatu0].value[(0 >> 2)] = uint(floatBitsToUint(u_xlat8.x));
+            inOutVertices6_buf[u_xlatu0].value[(0 >> 2) + 1] = uint(floatBitsToUint(u_xlat8.y));
+            inOutVertices6_buf[u_xlatu0].value[(0 >> 2) + 2] = uint(floatBitsToUint(u_xlat8.z));
+            inOutVertices6_buf[u_xlatu0].value[(0 >> 2) + 3] = uint(floatBitsToUint(u_xlat8.w));
+            inOutVertices6_buf[u_xlatu0].value[(16 >> 2)] = uint(floatBitsToUint(u_xlat5.x));
+            inOutVertices6_buf[u_xlatu0].value[(16 >> 2) + 1] = uint(floatBitsToUint(u_xlat5.y));
+            inOutVertices6_buf[u_xlatu0].value[(16 >> 2) + 2] = uint(floatBitsToUint(u_xlat5.z));
+            inOutVertices6_buf[u_xlatu0].value[(16 >> 2) + 3] = uint(floatBitsToUint(u_xlat5.w));
+            inOutVertices6_buf[u_xlatu0].value[(32 >> 2)] = uint(floatBitsToUint(u_xlat14));
+        }
+    } else {
+        u_xlatb0 = gl_GlobalInvocationID.x>=g_BatchOffsets[1].y;
+        if(u_xlatb0){
+            u_xlatu0 = gl_GlobalInvocationID.x + (-g_BatchOffsets[1].y);
+            u_xlatb14 = u_xlatu0<g_VertCounts[1].y;
+            if(u_xlatb14){
+                u_xlat1 = vec4(uintBitsToFloat(inOutVertices5_buf[u_xlatu0].value[(0 >> 2) + 3]), uintBitsToFloat(inOutVertices5_buf[u_xlatu0].value[(0 >> 2) + 0]), uintBitsToFloat(inOutVertices5_buf[u_xlatu0].value[(0 >> 2) + 1]), uintBitsToFloat(inOutVertices5_buf[u_xlatu0].value[(0 >> 2) + 2]));
+                u_xlat2 = vec4(uintBitsToFloat(inOutVertices5_buf[u_xlatu0].value[(16 >> 2) + 0]), uintBitsToFloat(inOutVertices5_buf[u_xlatu0].value[(16 >> 2) + 1]), uintBitsToFloat(inOutVertices5_buf[u_xlatu0].value[(16 >> 2) + 2]), uintBitsToFloat(inOutVertices5_buf[u_xlatu0].value[(16 >> 2) + 3]));
+                u_xlat3.z = uintBitsToFloat(inOutVertices5_buf[u_xlatu0].value[(32 >> 2) + 0]);
+                u_xlat4 = vec4(uintBitsToFloat(inSkin5_buf[u_xlatu0].value[(0 >> 2) + 0]), uintBitsToFloat(inSkin5_buf[u_xlatu0].value[(0 >> 2) + 1]), uintBitsToFloat(inSkin5_buf[u_xlatu0].value[(0 >> 2) + 2]), uintBitsToFloat(inSkin5_buf[u_xlatu0].value[(0 >> 2) + 3]));
+                u_xlati14.xy = floatBitsToInt(u_xlat4.zw) + ivec2(g_PoseOffsets[1].yy);
+                u_xlat5.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(0 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(0 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(0 >> 2) + 2]));
+                u_xlat6.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(16 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(16 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(16 >> 2) + 2]));
+                u_xlat7.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(32 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(32 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(32 >> 2) + 2]));
+                u_xlat8.xyw = vec3(uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(48 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(48 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(48 >> 2) + 2]));
+                u_xlat9.x = u_xlat5.x;
+                u_xlat9.y = u_xlat6.x;
+                u_xlat9.z = u_xlat7.x;
+                u_xlat9.w = u_xlat8.x;
+                u_xlat10.x = u_xlat5.y;
+                u_xlat10.y = u_xlat6.y;
+                u_xlat10.z = u_xlat7.y;
+                u_xlat10.w = u_xlat8.y;
+                u_xlat8.x = u_xlat5.z;
+                u_xlat8.y = u_xlat6.z;
+                u_xlat8.z = u_xlat7.z;
+                u_xlat5.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(0 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(0 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(0 >> 2) + 2]));
+                u_xlat6.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(16 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(16 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(16 >> 2) + 2]));
+                u_xlat7.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(32 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(32 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(32 >> 2) + 2]));
+                u_xlat11.xyw = vec3(uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(48 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(48 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(48 >> 2) + 2]));
+                u_xlat12.x = u_xlat5.x;
+                u_xlat12.y = u_xlat6.x;
+                u_xlat12.z = u_xlat7.x;
+                u_xlat12.w = u_xlat11.x;
+                u_xlat12 = u_xlat4.yyyy * u_xlat12;
+                u_xlat13.x = u_xlat5.y;
+                u_xlat13.y = u_xlat6.y;
+                u_xlat13.z = u_xlat7.y;
+                u_xlat13.w = u_xlat11.y;
+                u_xlat13 = u_xlat4.yyyy * u_xlat13;
+                u_xlat11.x = u_xlat5.z;
+                u_xlat11.y = u_xlat6.z;
+                u_xlat11.z = u_xlat7.z;
+                u_xlat5 = u_xlat4.yyyy * u_xlat11;
+                u_xlat6 = u_xlat9 * u_xlat4.xxxx + u_xlat12;
+                u_xlat7 = u_xlat10 * u_xlat4.xxxx + u_xlat13;
+                u_xlat4 = u_xlat8 * u_xlat4.xxxx + u_xlat5;
+                u_xlat5.xyz = u_xlat1.yzw;
+                u_xlat5.w = 1.0;
+                u_xlat8.x = dot(u_xlat6, u_xlat5);
+                u_xlat8.y = dot(u_xlat7, u_xlat5);
+                u_xlat8.z = dot(u_xlat4, u_xlat5);
+                u_xlat1.yz = u_xlat2.xy;
+                u_xlat8.w = dot(u_xlat6.xyz, u_xlat1.xyz);
+                u_xlat5.x = dot(u_xlat7.xyz, u_xlat1.xyz);
+                u_xlat5.y = dot(u_xlat4.xyz, u_xlat1.xyz);
+                u_xlat3.xy = u_xlat2.zw;
+                u_xlat5.z = dot(u_xlat6.xyz, u_xlat3.xyz);
+                u_xlat5.w = dot(u_xlat7.xyz, u_xlat3.xyz);
+                u_xlat14 = dot(u_xlat4.xyz, u_xlat3.xyz);
+                inOutVertices5_buf[u_xlatu0].value[(0 >> 2)] = uint(floatBitsToUint(u_xlat8.x));
+                inOutVertices5_buf[u_xlatu0].value[(0 >> 2) + 1] = uint(floatBitsToUint(u_xlat8.y));
+                inOutVertices5_buf[u_xlatu0].value[(0 >> 2) + 2] = uint(floatBitsToUint(u_xlat8.z));
+                inOutVertices5_buf[u_xlatu0].value[(0 >> 2) + 3] = uint(floatBitsToUint(u_xlat8.w));
+                inOutVertices5_buf[u_xlatu0].value[(16 >> 2)] = uint(floatBitsToUint(u_xlat5.x));
+                inOutVertices5_buf[u_xlatu0].value[(16 >> 2) + 1] = uint(floatBitsToUint(u_xlat5.y));
+                inOutVertices5_buf[u_xlatu0].value[(16 >> 2) + 2] = uint(floatBitsToUint(u_xlat5.z));
+                inOutVertices5_buf[u_xlatu0].value[(16 >> 2) + 3] = uint(floatBitsToUint(u_xlat5.w));
+                inOutVertices5_buf[u_xlatu0].value[(32 >> 2)] = uint(floatBitsToUint(u_xlat14));
+            }
+        } else {
+            u_xlatb0 = gl_GlobalInvocationID.x>=g_BatchOffsets[1].x;
+            if(u_xlatb0){
+                u_xlatu0 = gl_GlobalInvocationID.x + (-g_BatchOffsets[1].x);
+                u_xlatb14 = u_xlatu0<g_VertCounts[1].x;
+                if(u_xlatb14){
+                    u_xlat1 = vec4(uintBitsToFloat(inOutVertices4_buf[u_xlatu0].value[(0 >> 2) + 3]), uintBitsToFloat(inOutVertices4_buf[u_xlatu0].value[(0 >> 2) + 0]), uintBitsToFloat(inOutVertices4_buf[u_xlatu0].value[(0 >> 2) + 1]), uintBitsToFloat(inOutVertices4_buf[u_xlatu0].value[(0 >> 2) + 2]));
+                    u_xlat2 = vec4(uintBitsToFloat(inOutVertices4_buf[u_xlatu0].value[(16 >> 2) + 0]), uintBitsToFloat(inOutVertices4_buf[u_xlatu0].value[(16 >> 2) + 1]), uintBitsToFloat(inOutVertices4_buf[u_xlatu0].value[(16 >> 2) + 2]), uintBitsToFloat(inOutVertices4_buf[u_xlatu0].value[(16 >> 2) + 3]));
+                    u_xlat3.z = uintBitsToFloat(inOutVertices4_buf[u_xlatu0].value[(32 >> 2) + 0]);
+                    u_xlat4 = vec4(uintBitsToFloat(inSkin4_buf[u_xlatu0].value[(0 >> 2) + 0]), uintBitsToFloat(inSkin4_buf[u_xlatu0].value[(0 >> 2) + 1]), uintBitsToFloat(inSkin4_buf[u_xlatu0].value[(0 >> 2) + 2]), uintBitsToFloat(inSkin4_buf[u_xlatu0].value[(0 >> 2) + 3]));
+                    u_xlati14.xy = floatBitsToInt(u_xlat4.zw) + ivec2(g_PoseOffsets[1].xx);
+                    u_xlat5.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(0 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(0 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(0 >> 2) + 2]));
+                    u_xlat6.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(16 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(16 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(16 >> 2) + 2]));
                     u_xlat7.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(32 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(32 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(32 >> 2) + 2]));
+                    u_xlat8.xyw = vec3(uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(48 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(48 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(48 >> 2) + 2]));
+                    u_xlat9.x = u_xlat5.x;
+                    u_xlat9.y = u_xlat6.x;
+                    u_xlat9.z = u_xlat7.x;
+                    u_xlat9.w = u_xlat8.x;
+                    u_xlat10.x = u_xlat5.y;
+                    u_xlat10.y = u_xlat6.y;
+                    u_xlat10.z = u_xlat7.y;
+                    u_xlat10.w = u_xlat8.y;
+                    u_xlat8.x = u_xlat5.z;
+                    u_xlat8.y = u_xlat6.z;
+                    u_xlat8.z = u_xlat7.z;
+                    u_xlat5.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(0 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(0 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(0 >> 2) + 2]));
+                    u_xlat6.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(16 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(16 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(16 >> 2) + 2]));
+                    u_xlat7.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(32 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(32 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(32 >> 2) + 2]));
+                    u_xlat11.xyw = vec3(uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(48 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(48 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati14.y].value[(48 >> 2) + 2]));
+                    u_xlat12.x = u_xlat5.x;
+                    u_xlat12.y = u_xlat6.x;
+                    u_xlat12.z = u_xlat7.x;
+                    u_xlat12.w = u_xlat11.x;
+                    u_xlat12 = u_xlat4.yyyy * u_xlat12;
+                    u_xlat13.x = u_xlat5.y;
+                    u_xlat13.y = u_xlat6.y;
+                    u_xlat13.z = u_xlat7.y;
+                    u_xlat13.w = u_xlat11.y;
+                    u_xlat13 = u_xlat4.yyyy * u_xlat13;
+                    u_xlat11.x = u_xlat5.z;
+                    u_xlat11.y = u_xlat6.z;
+                    u_xlat11.z = u_xlat7.z;
+                    u_xlat5 = u_xlat4.yyyy * u_xlat11;
+                    u_xlat6 = u_xlat9 * u_xlat4.xxxx + u_xlat12;
+                    u_xlat7 = u_xlat10 * u_xlat4.xxxx + u_xlat13;
+                    u_xlat4 = u_xlat8 * u_xlat4.xxxx + u_xlat5;
+                    u_xlat5.xyz = u_xlat1.yzw;
+                    u_xlat5.w = 1.0;
+                    u_xlat8.x = dot(u_xlat6, u_xlat5);
+                    u_xlat8.y = dot(u_xlat7, u_xlat5);
+                    u_xlat8.z = dot(u_xlat4, u_xlat5);
+                    u_xlat1.yz = u_xlat2.xy;
+                    u_xlat8.w = dot(u_xlat6.xyz, u_xlat1.xyz);
+                    u_xlat5.x = dot(u_xlat7.xyz, u_xlat1.xyz);
+                    u_xlat5.y = dot(u_xlat4.xyz, u_xlat1.xyz);
+                    u_xlat3.xy = u_xlat2.zw;
+                    u_xlat5.z = dot(u_xlat6.xyz, u_xlat3.xyz);
+                    u_xlat5.w = dot(u_xlat7.xyz, u_xlat3.xyz);
+                    u_xlat14 = dot(u_xlat4.xyz, u_xlat3.xyz);
+                    inOutVertices4_buf[u_xlatu0].value[(0 >> 2)] = uint(floatBitsToUint(u_xlat8.x));
+                    inOutVertices4_buf[u_xlatu0].value[(0 >> 2) + 1] = uint(floatBitsToUint(u_xlat8.y));
+                    inOutVertices4_buf[u_xlatu0].value[(0 >> 2) + 2] = uint(floatBitsToUint(u_xlat8.z));
+                    inOutVertices4_buf[u_xlatu0].value[(0 >> 2) + 3] = uint(floatBitsToUint(u_xlat8.w));
+                    inOutVertices4_buf[u_xlatu0].value[(16 >> 2)] = uint(floatBitsToUint(u_xlat5.x));
+                    inOutVertices4_buf[u_xlatu0].value[(16 >> 2) + 1] = uint(floatBitsToUint(u_xlat5.y));
+                    inOutVertices4_buf[u_xlatu0].value[(16 >> 2) + 2] = uint(floatBitsToUint(u_xlat5.z));
+                    inOutVertices4_buf[u_xlatu0].value[(16 >> 2) + 3] = uint(floatBitsToUint(u_xlat5.w));
+                    inOutVertices4_buf[u_xlatu0].value[(32 >> 2)] = uint(floatBitsToUint(u_xlat14));
+                }
+            } else {
+                u_xlatb0 = gl_GlobalInvocationID.x>=g_BatchOffsets[0].w;
+                if(u_xlatb0){
+                    u_xlatu0 = gl_GlobalInvocationID.x + (-g_BatchOffsets[0].w);
+                    u_xlatb14 = u_xlatu0<g_VertCounts[0].w;
+                    if(u_xlatb14){
+                        u_xlat1 = vec4(uintBitsToFloat(inOutVertices3_buf[u_xlatu0].value[(0 >> 2) + 3]), uintBitsToFloat(inOutVertices3_buf[u_xlatu0].value[(0 >> 2) + 0]), uintBitsToFloat(inOutVertices3_buf[u_xlatu0].value[(0 >> 2) + 1]), uintBitsToFloat(inOutVertices3_buf[u_xlatu0].value[(0 >> 2) + 2]));
+                        u_xlat2 = vec4(uintBitsToFloat(inOutVertices3_buf[u_xlatu0].value[(16 >> 2) + 0]), uintBitsToFloat(inOutVertices3_buf[u_xlatu0].value[(16 >> 2) + 1]), uintBitsToFloat(inOutVertices3_buf[u_xlatu0].value[(16 >> 2) + 2]), uintBitsToFloat(inOutVertices3_buf[u_xlatu0].value[(16 >> 2) + 3]));
+                        u_xlat3.z = uintBitsToFloat(inOutVertices3_buf[u_xlatu0].value[(32 >> 2) + 0]);
+                        u_xlat4 = vec4(uintBitsToFloat(inSkin3_buf[u_xlatu0].value[(0 >> 2) + 0]), uintBitsToFloat(inSkin3_buf[u_xlatu0].value[(0 >> 2) + 1]), uintBitsToFloat(inSkin3_buf[u_xlatu0].value[(0 >> 2) + 2]), uintBitsToFloat(inSkin3_buf[u_xlatu0].value[(0 >> 2) + 3]));
+                        u_xlati14.xy = floatBitsToInt(u_xlat4.zw) + ivec2(g_PoseOffsets[0].ww);
+                        u_xlat5.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(0 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(0 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(0 >> 2) + 2]));
+                        u_xlat6.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(16 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(16 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(16 >> 2) + 2]));
+                        u_xlat7.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(32 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(32 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(32 >> 2) + 2]));
                         u_xlat8.xyw = vec3(uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(48 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(48 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati14.x].value[(48 >> 2) + 2]));
                         u_xlat9.x = u_xlat5.x;
                         u_xlat9.y = u_xlat6.x;
