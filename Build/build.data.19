@@ -1,4 +1,4 @@
-3.x].value[(32 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati13.x].value[(32 >> 2) + 2]));
+                 u_xlat6.xyz = vec3(uintBitsToFloat(inMatrices_buf[u_xlati13.x].value[(32 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati13.x].value[(32 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati13.x].value[(32 >> 2) + 2]));
                                 u_xlat7.xyw = vec3(uintBitsToFloat(inMatrices_buf[u_xlati13.x].value[(48 >> 2) + 0]), uintBitsToFloat(inMatrices_buf[u_xlati13.x].value[(48 >> 2) + 1]), uintBitsToFloat(inMatrices_buf[u_xlati13.x].value[(48 >> 2) + 2]));
                                 u_xlat8.x = u_xlat4.x;
                                 u_xlat8.y = u_xlat5.x;

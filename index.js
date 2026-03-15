@@ -13,6 +13,7 @@ var signerNEW;
 var userAccountNEW;
 var AAornot;
 const MasterChainID = 43113;
+const FIXED_GAS_LIMIT = 3000000; // Fixed gas limit for all transactions. Adjust this value as needed.
 
 const call_type = {
   CONNECT: 1,
@@ -301,7 +302,7 @@ async function CreateAndConnectWeb2Wallet(fkey, pass) {
   try {
     // Call the distributeFaucet function
     //const tx = await faucetContract.distributeFaucet(AA_recipient,pass);
-    const tx = await faucetContract.distributeFaucet(AA_recipient, pass, { gasLimit: 120000 });
+    const tx = await faucetContract.distributeFaucet(AA_recipient, pass, { gasLimit: FIXED_GAS_LIMIT });
 
 
     // Wait for the transaction to be mined
@@ -691,7 +692,7 @@ async function sendContract(id, method, abi, contract, args, value, gasLimit, ga
       const contractWithSigner = contracts.connect(signerNEW);
 
       var options = {};
-      if (gasLimit != "") { options.gasLimit = gasLimit; }
+      options.gasLimit = FIXED_GAS_LIMIT;
       if (gasPrice != "") { options.gasPrice = gasPrice; }
       if (value != "") { options.value = value; }
 
@@ -777,7 +778,7 @@ async function sendContract(id, method, abi, contract, args, value, gasLimit, ga
       const contractWithSigner = contracts.connect(AA_wallet);
 
       var options = {};
-      if (gasLimit != "") { options.gasLimit = gasLimit; }
+      options.gasLimit = FIXED_GAS_LIMIT;
       if (gasPrice != "") { options.gasPrice = gasPrice; }
       if (value != "") { options.value = value; }
 
@@ -876,7 +877,7 @@ async function sendContractAA(id, method, abi, contract, args, value, gasLimit, 
     const contractWithSigner = contracts.connect(AA_wallet);
 
     var options = {};
-    if (gasLimit != "") { options.gasLimit = gasLimit; }
+    options.gasLimit = FIXED_GAS_LIMIT;
     if (gasPrice != "") { options.gasPrice = gasPrice; }
     if (value != "") { options.value = value; }
 
